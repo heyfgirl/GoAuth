@@ -1,0 +1,35 @@
+Env: prod # 环境，线上环境：prod、测试环境：dev
+BaseUrl: https://mlog.club # 网站域名
+Port: 8082 # 端口
+LogFile: /data/logs/bbs-go.log # 日志文件
+ShowSql: false # 是否打印sql
+StaticPath: /data/www  # 根路径下的静态文件目录，可配置绝对路径
+
+
+Pg:
+  UserName: postgres
+  PassWord: O8MxsIhH
+  Host: dev.guaishoubobo.com
+  Port: 5432
+  Db: go_auth
+
+DefaultUser:
+  NickNmaePrefix: 手机用户
+  Avatar:
+
+Redis:
+  MaxClients: 10
+  MinClients: 1
+  Port: 6379
+  Db: 1
+  Host: dev.guaishoubobo.com
+  Password: sC5Ja6yx
+
+Wechat:
+  AppID: wx05fb5b232abf83e7
+  AppSecret: 614d33541efe9a589a33147a7e10d6f6
+  WebID: wx190ef9ba551856b0
+  WebSecret: 55a4e4aa42e36a3691ee242c967ffd5f
+
+RedisKey:
+  WechatAccount: wechat:account:_

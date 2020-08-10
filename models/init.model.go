@@ -66,6 +66,11 @@ func (j JSON) Equals(j1 JSON) bool {
 	return bytes.Equal([]byte(j), []byte(j1))
 }
 
+//多个字段唯一约束个数
+type UniqueCount struct {
+	count int
+}
+
 //Models 数据库统一
 var Models = []interface{}{
 	&User{}, &Account{},
@@ -91,6 +96,7 @@ func init() {
 		// panic(err)
 		logrus.Error(err)
 	}
+	defer DB.Close()
 	DB.LogMode(true)                        //调试模式
 	DB.DB().SetMaxIdleConns(pgMaxOpenConns) //配置连接池
 	DB.DB().SetMaxOpenConns(pgMaxIdleConns)
@@ -98,9 +104,9 @@ func init() {
 		fmt.Printf("auto migrate tables failed: %s", err.Error())
 	}
 	autoTags(DB, Models...)
-	// defer DB.Close()
 }
 
+//多个字段组合唯一约束的初始化函数
 func autoTags(s *gorm.DB, values ...interface{}) {
 	db := s.Unscoped()
 	for _, value := range values {
@@ -129,6 +135,12 @@ func autoTags(s *gorm.DB, values ...interface{}) {
 		fmt.Println(tags)
 		for key, tag := range tags {
 			if len(tag) != 0 {
+				//检查 多字段唯一属性 【key】 是否已经存在
+				var result UniqueCount
+				db.Raw("select count(constraint_name) from information_schema.constraint_column_usage where table_name = '" + scope.TableName() + "'  and constraint_name = '" + key + "'").Scan(&result)
+				if result.count > 0 {
+					return
+				}
 				sqlCreate := "alter table" + " " + scope.TableName() + " " +
 					"add constraint" + " " + key + " " +
 					tag

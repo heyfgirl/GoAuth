@@ -10,7 +10,7 @@ import (
 //DefaultModel 基本模型的定义
 type DefaultModel struct {
 	ID        int        `gorm:"not null;PRIMARY_KEY;AUTO_INCREMENT" json:"id" form:"id"`
-	Hash      string     `gorm:"not null;size:32;unique;" json:"hash" form:"hash"`
+	Hash      string     `gorm:"not null;size:32;unique_index" json:"hash" form:"hash"`
 	CreatedAt time.Time  `gorm:"not null;default:now()" json:"created_at" form:"created_at"`
 	UpdatedAt time.Time  `gorm:"not null;default:now()" json:"updated_at" form:"updated_at"`
 	DeletedAt *time.Time `gorm:"default:NULL::timestamp with time zone" json:"deleted_at" form:"deleted_at"`

@@ -9,7 +9,7 @@ StaticPath: /data/www  # 根路径下的静态文件目录，可配置绝对路�
 Pg:
   UserName: postgres
   PassWord: O8MxsIhH
-  Host: dev.guaishoubobo.com
+  Host: 127.0.0.1
   Port: 5432
   Db: go_auth
 
@@ -22,7 +22,7 @@ Redis:
   MinClients: 1
   Port: 6379
   Db: 1
-  Host: dev.guaishoubobo.com
+  Host: 127.0.0.1
   Password: sC5Ja6yx
 
 Wechat:
